@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from 'react-router-dom'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect } from 'react-router-dom'
 import Home from './components/Home'
+import LoginForm from './components/LoginForm'
+import SignUpPage from "./components/SignUpPage";
+import Navbar from "./components/Navbar"
 
 // import BookCollection from "./components/BookCollection";
 // import UnauthenticatedApp from "./components/UnauthenticatedApp";
@@ -14,16 +17,23 @@ function App() {
   const [books, setBooks] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
 
+  function storeUser(user) {
+    localStorage.setItem("user", user.id);
+    setCurrentUser(user);
+  }
+
   useEffect(() => {
-    fetch("http://localhost:4000/books")
+    fetch("/books")
       .then((r) => r.json())
       .then((bookData) => setBooks(bookData));
   }, []);
 
   return (
     <Router>
+      <Navbar />
       <Switch>
-    <Route path='/'exact> <Home />
+       
+    <Route path='/home'exact> <Home currentUser={currentUser}/> 
       </Route>
 
     <Route path='/myshelf'> 
@@ -33,9 +43,20 @@ function App() {
     <Route path='/myprofile'>
       <MyProfile currentUser={currentUser} />
       </Route>
-     
-     </Switch>
+
+      <Route exact path="/signup">
+            <SignUpPage  currentUser={currentUser} />
+            </Route>
+
+           
+
+          <Route exact path="/">
+      <LoginForm onLogin={storeUser} setCurrentUser={setCurrentUser}/>
+      </Route>
+
+        </Switch>
     </Router>
+     
   )
 }
 

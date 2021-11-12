@@ -1,6 +1,8 @@
 class Api::V1::UsersController < ApplicationController
     User = Api::V1::User
-    skip_before_action :authorize, only: :create
+    # skip_before_action :authorize, only: :create
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_response
+
 
     def index
         render json: User.all
@@ -25,6 +27,10 @@ class Api::V1::UsersController < ApplicationController
     end
 
     private
+    
+    def render_unprocessable_response(invalid)
+        render json: { errors: "Username and/or Password Cannot Be Blank" }, status: :unprocessable_entity
+      end
 
     
     def user_params
