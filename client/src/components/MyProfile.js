@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-//import UpdateForm from "./UpdateForm";
+import UpdateForm from "./UpdateForm";
 
 function MyProfile({ currentUser }) {
   const [profile, setProfile] = useState([]);
@@ -14,24 +14,28 @@ function MyProfile({ currentUser }) {
         setBookCount(user.book_titles.length);
       }
     }
-    getProfile();
+    currentUser && getProfile();
   }, []);
 
   const { name, fav_genre, bio } = profile;
 
   return (
     <div className="bookcard">
-      <h1>{name}'s Profile</h1>
-      <h2> Favorite genre: {fav_genre}</h2>
-      <h2>Books on your shelf: {bookCount}</h2>
-      <h2>About {name}: </h2>
-      <p>{bio}</p>
+      {currentUser && (
+        <>
+      <h1>{currentUser.name}'s Profile</h1>
+      <h2> Favorite genre: {currentUser.fav_genre}</h2>
+      <h2>Books on your shelf: {currentUser.bookCount}</h2>
+      <h2>About {currentUser.name}: </h2>
+      <p>{currentUser.bio}</p>
 
       <div>
         <h4>
-          
+          <UpdateForm setProfile={setProfile} currentUser={currentUser}/>
         </h4>
       </div>
+      </>
+      )}
     </div>
   );
 }

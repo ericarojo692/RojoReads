@@ -1,13 +1,15 @@
 import React from 'react'
-// import Navbar from './Navbar'
-// import LoginForm from './LoginForm'
+import BookCard from './BookCard'
+import LoginForm from './LoginForm'
+import Navbar from "./Navbar"
 
 function Home({ currentUser }) {
     return (
         <div>
-            {/* <Navbar />
-            <LoginForm currentUser={currentUser}/> */}
-            <h1>test</h1>
+             
+            {/* <LoginForm currentUser={currentUser}/>  */}
+            {/* <Navbar /> */}
+            
             
             
         </div>

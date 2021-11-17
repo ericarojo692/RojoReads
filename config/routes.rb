@@ -5,8 +5,11 @@ Rails.application.routes.draw do
       resources :shelves, only: [:index, :show, :create, :destroy]
       resources :reviews, only: [:index, :create]
       resources :ratings, only: [:index, :create]
-      resources :books, only: [:index, :create]
+      resources :books, only: [:index, :show,:create]
       post '/login', to: 'sessions#create'
+      delete '/logout', to: 'sessions#destroy'
+      get "/me", to: "sessions#me"
+      # get "/books/:id", to: "books#show"
     end
   end
   

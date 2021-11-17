@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import SignUpPage from "./SignUpPage";
 
 
-function LoginForm({ setCurrentUser }) {
+function LoginForm({ setCurrentUser, toggleCurrentUser }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(null);
@@ -22,6 +23,7 @@ function LoginForm({ setCurrentUser }) {
         if (res.ok) {
           res.json().then(user => {
             setCurrentUser(user)
+            toggleCurrentUser()
             history.push('/home')
           })
         } else {
@@ -32,8 +34,11 @@ function LoginForm({ setCurrentUser }) {
       })
   }
 
+ 
 
   return (
+    <div>
+    {/* <SignUpPage onLogin={storeUser} setCurrentUser={setCurrentUser}/> */}
     <div className="form">
       <form onSubmit={handleSubmit}>
         <h1>Log In</h1>
@@ -53,9 +58,11 @@ function LoginForm({ setCurrentUser }) {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
         <br />
-        <input type="submit" value="Submit"></input>
+        <input type="submit" value="Log In"></input>
         {errors ? errors.map((error) => <div>{error}</div>) : null}
       </form>
+      
+    </div>
     </div>
   );
 }

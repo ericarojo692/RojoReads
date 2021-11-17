@@ -2,39 +2,44 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 
-function BookDetails({ currentUser }) {
+
+function BookDetails({ setCurrentUser, toggleRefresh }) {
   const [book, setBook] = useState([]);
   const [errors, setErrors] = useState(null);
-  const [review, setReview] = useState([]);
-  const [newReview, setNewReview] = useState([]);
-  const [rating, setRating] = useState([]);
-  const [newRating, setNewRating] = useState([]);
-  const [hasShelf, setHasShelf] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState('');
+  const [rating, setRating] = useState(0);
+  const [newRating, setNewRating] = useState(0);
+  const [shelves, setShelves] = useState([]);
   const id = useParams().id;
   let history = useHistory();
 
-  
+  console.log(id)
+  //FETCH A SINGLE BOOK FROM BACKEND
   useEffect(() => {
-    fetch(`http://localhost:3000/books/${id}`)
+    fetch(`/books/${id}`) 
+    
       .then((r) => r.json())
       .then((book) => {
         setBook(book);
-        setReview(book.book_reviews);
+        setReviews(book.book_reviews);
         setRating(book.book_ratings);
-        setHasShelf(book.shelves);
+        setShelves(book.shelves);
       });
   }, [id]);
 
   
+
+  //DECONSTRUCT BOOK INFO FOR EASE OF USE
   const { title, author, genre, pub_date, image, shelf } =
     book;
 
   //ADDS A BOOK TO A USER'S SHELF
-  function addBook() {
+  async function addBook() {
     const bookData = {
       book_id: book.id,
     };
-    const res = fetch("/shelves", {
+    const res = await fetch("/shelves", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,31 +47,33 @@ function BookDetails({ currentUser }) {
       body: JSON.stringify(bookData),
     });
     if (res.ok) {
-      const shelf =  res.json();
+      const shelf = await res.json();
+      console.log(shelf)
       alert(`${title} has been added to your shelf`);
+      toggleRefresh()
       history.push("/myshelf");
     } else {
-      const error =  res.json();
+      const error = await res.json();
       setErrors(error.message);
     }
   }
 
-  
-    function removeBook() {
-    const res =  fetch(`/shelves/${shelf}`, {
+  // REMOVE BOOK FROM MYSHELF
+  async function removeBook() {
+    const res = await fetch(`/shelves/${shelf}`, {
       method: "DELETE",
     });
     if (res.ok) {
       alert(`${title} has been removed from your shelf`);
+      toggleRefresh()
       history.push("/myshelf");
     }
   }
 
-  
-function addReview(e) {
-    // e.preventDefault();
+  //POST REQUEST TO ADD A REVIEW
+  async function addReview(e) {
     const reviewData = { book_id: book.id, content: newReview };
-    const res =  fetch(`/reviews`, {
+    const res = await fetch(`/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,27 +81,28 @@ function addReview(e) {
       body: JSON.stringify(reviewData),
     });
     const rev = await res.json();
-    setReview([...review, rev]);
+    setReviews([...reviews, rev]);
   }
 
-
-   function addRating(e) {
+  
+  async function addRating(e) {
+   e.preventDefault();
     const ratingData = { book_id: book.id, rating: newRating };
-    const res = fetch(`/ratings`, {
+    const res = await fetch(`/ratings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(ratingData),
     });
-    const rate = res.json();
+    const rate = await res.json();
     setRating(rate);
+    console.log(rate)
   }
 
- 
-  const total = (together, currentValue) => together + currentValue;
+  
+  const total = (accumulator, currentValue) => accumulator + currentValue;
 
- 
   return (
     <div className="bookcard">
       <ul>
@@ -106,24 +114,23 @@ function addReview(e) {
           <b>Genre: </b>
           {genre}
         </ul>
-        <ul>
-          <b>Page count: </b> {length}
-        </ul>
+       
         <ul>
           <b>Published: </b>
           {pub_date}
         </ul>
-        <ul>
+        {/* <ul>
           <b>Average rating: </b>
-          {rating.length > 0
-            ? (rating.reduce(total) / rating.length).toFixed(2)
+          {total > 0
+            ? total
             : "This book hasn't been rated yet"}
-        </ul>
+        </ul> */}
       </ul>
       <div>
         <b>Reviews about {title}: </b>
         <ul>
-          {review.length > 0 ? review.map((r) => (
+          {reviews.length > 0
+            ? reviews.map((r) => (
                 <p key={r.id}>
                   <i>{r}</i>
                 </p>
@@ -131,15 +138,15 @@ function addReview(e) {
             : "This book hasn't been reviewed yet"}
         </ul>
         <div className="bookcard">
-          {hasShelf.length > 0 ? (
-            <button onClick={removeBook}>Remove from my shelf</button>
+          {shelves.length > 0 ? (
+            <button onClick={e=>removeBook(book.id)}>Remove from my shelf</button>
           ) : (
             <button onClick={addBook}>Add to my shelf</button>
           )}
         </div>
 
-        
-        <div>
+     
+        {/* <div>
           <form onSubmit={addRating}>
             <label htmlFor="newRating"> Leave a rating: </label>
             <select
@@ -152,13 +159,12 @@ function addReview(e) {
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
-             
-            </select>;
+            </select> &nbsp;
             <input type="submit" value="Rate" />
           </form>
-        </div>
+        </div> */}
 
-        
+        {/* FORM TO ADD A NEW REVIEW */}
         <div>
           <form onSubmit={addReview}>
             <textarea

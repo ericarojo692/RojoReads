@@ -11,9 +11,17 @@ class Api::V1::SessionsController < ApplicationController
         end
     end
 
+    def me
+        if current_user
+            render json: @current_user, status: :ok
+        else
+            render json: { error: "You are not logged in" }, status: :unauthorized
+        end
+      end
 
-    def destroy 
-        session.delete(@current_user.id)
+
+    def destroy
+        session.delete :user_id
         head :no_content
-    end
+      end
 end
