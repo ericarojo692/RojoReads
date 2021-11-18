@@ -4,12 +4,8 @@ import BookDetails from "./BookDetails"
 
 
 function MyShelf({ currentUser, isBooks }) {
-
-  // const [isBooks, setMyBooks] = useState([]);
+// const [isBooks, setMyBooks] = useState([]);
   
-
-
-   
   //  useEffect(() => {
   //    fetch(`/users/${currentUser.id}`)
   //    .then(resp=>resp.json()) 

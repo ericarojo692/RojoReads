@@ -106,16 +106,17 @@ function BookDetails({ setCurrentUser, toggleRefresh }) {
   return (
     <div className="bookcard">
       <ul>
-        <h3>
+        <h3 className="text-center">
           {title} by {author}
         </h3>
-        <img src={image} alt={title} className="photo" />
-        <ul>
-          <b>Genre: </b>
+        
+        <img src={image} className="d-block mx-auto img-fluid w-50" alt={title} />
+        <ul className="text-center" ç>
+          <b >Genre: </b>
           {genre}
         </ul>
        
-        <ul>
+        <ul className="text-center">
           <b>Published: </b>
           {pub_date}
         </ul>
@@ -126,7 +127,7 @@ function BookDetails({ setCurrentUser, toggleRefresh }) {
             : "This book hasn't been rated yet"}
         </ul> */}
       </ul>
-      <div>
+      <div className="text-center">
         <b>Reviews about {title}: </b>
         <ul>
           {reviews.length > 0

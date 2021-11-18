@@ -23,14 +23,14 @@ function MyProfile({ currentUser }) {
     <div className="bookcard">
       {currentUser && (
         <>
-      <h1>{currentUser.name}'s Profile</h1>
-      <h2> Favorite genre: {currentUser.fav_genre}</h2>
-      <h2>Books on your shelf: {currentUser.bookCount}</h2>
-      <h2>About {currentUser.name}: </h2>
-      <p>{currentUser.bio}</p>
+      <h1 className="text-center">{currentUser.name}'s Profile</h1>
+      <h2 className="text-center"> Favorite genre: {currentUser.fav_genre}</h2>
+      <h2 className="text-center">Books on your shelf: {currentUser.bookCount}</h2>
+      <h2 className="text-center">About {currentUser.name}: </h2>
+      <p className="text-center">{currentUser.bio}</p>
 
       <div>
-        <h4>
+        <h4 className="text-center">
           <UpdateForm setProfile={setProfile} currentUser={currentUser}/>
         </h4>
       </div>

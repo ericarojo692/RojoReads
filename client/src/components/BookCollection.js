@@ -20,7 +20,7 @@ function BookCollection({
     <div className="bookcard">
     <SearchBar searchBooks={searchBooks} />
       <GenreFilter filterBooks={filterBooks} />
-      <h1>You might like:</h1>
+      <h3 className="text-center">You might like:</h3>
       {filteredBooks.length > 0 ? filteredBooks.map((book) => (
         <BookCard book={book} key={book.id} />
       )): null}

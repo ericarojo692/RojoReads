@@ -10,7 +10,8 @@ function SearchBar({ searchBooks }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
+      <div style={{ width: "250px", float: "right" }} >
+      <input 
         type="text"
         id="search"
         placeholder="Search by title"
@@ -18,6 +19,7 @@ function SearchBar({ searchBooks }) {
         onChange={(e) => setSearch(e.target.value)}
       />
       <button type="submit">Search</button>
+      </div>
     </form>
   );
 }

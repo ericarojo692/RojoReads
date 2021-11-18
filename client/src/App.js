@@ -10,6 +10,8 @@ import BookDetails from "./components/BookDetails";
 import MyShelf from "./components/MyShelf";
 import MyProfile from "./components/MyProfile";
 import UpdateForm from "./components/UpdateForm";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -87,8 +89,8 @@ book.title.toLowerCase().includes(search.toLowerCase()))
 
       <Route path='/myshelf'> 
         <MyShelf books={books} currentUser={currentUser} isBooks={isBooks}/>
-      
       </Route>
+
       <Route path='/details/:id'>
         <BookDetails toggleRefresh={toggleRefresh} />
         </Route>
@@ -99,11 +101,15 @@ book.title.toLowerCase().includes(search.toLowerCase()))
 
       
       <Route exact path="/">
-        <SignUpPage  toggleCurrentUser={toggleCurrentUser} setCurrentUser={setCurrentUser}/>
-        <LoginForm  toggleCurrentUser={toggleCurrentUser} setCurrentUser={setCurrentUser}
-        
-        />
+        {/* <SignUpPage  toggleCurrentUser={toggleCurrentUser} setCurrentUser={setCurrentUser}/> */}
+        <LoginForm  toggleCurrentUser={toggleCurrentUser} setCurrentUser={setCurrentUser}/>
+        </Route>
+
+        <Route exact path="/signuppage">
+        <SignUpPage toggleCurrentUser={toggleCurrentUser} setCurrentUser={setCurrentUser}/>
       </Route>
+
+      
         </Switch>
    </>
      

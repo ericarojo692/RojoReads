@@ -6,7 +6,7 @@ function GenreFilter({ filterBooks }) {
  
 
   return (
-    <div>
+    <div class="card" style={{marginRight: 'em'}}>
       <form onSubmit={(e) => {
         e.preventDefault();
         filterBooks(filter)

@@ -43,7 +43,10 @@ function SignUpPage({  setCurrentUser, toggleCurrentUser }) {
   return (
     <div className="form">
       <form onSubmit={handleSubmit}>
-        <h1>Sign up</h1>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
+        <h1 >Sign up</h1>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
         <input
         required
           type="text"
@@ -52,7 +55,9 @@ function SignUpPage({  setCurrentUser, toggleCurrentUser }) {
           name="name"
           onChange={(e) => setName(e.target.value)}
         ></input>
+        </div>
         <br />
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
         <input
         required
           type="password"
@@ -61,7 +66,9 @@ function SignUpPage({  setCurrentUser, toggleCurrentUser }) {
           name="password"
           onChange={(e) => setPassword(e.target.value)}
         ></input>
+        </div>
         <br />
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} > 
         <textarea
         required
           type="text"
@@ -70,7 +77,9 @@ function SignUpPage({  setCurrentUser, toggleCurrentUser }) {
           name="bio"
           onChange={(e) => setBio(e.target.value)}
         ></textarea>
+        </div>
         <br />
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} > 
         <select
         required
           name="FavGenre"
@@ -85,8 +94,11 @@ function SignUpPage({  setCurrentUser, toggleCurrentUser }) {
           <option value="Fiction">Fiction</option>
         </select>
         <br />
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} >
         <input type="submit" value="Submit"></input>
         {errors ? <div>{errors}</div> : null}
+        </div>
       </form>
     </div>
   );

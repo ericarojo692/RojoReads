@@ -23,7 +23,7 @@ function Navbar({ setCurrentUser, toggleCurrentUser }) {
 
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">RojoReads</a>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
