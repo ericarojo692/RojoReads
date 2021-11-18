@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UpdateForm from "./UpdateForm";
 
-function MyProfile({ currentUser }) {
+function MyProfile({ currentUser, setCurrentUser }) {
   const [profile, setProfile] = useState([]);
   const [bookCount, setBookCount] = useState([]);
 
@@ -25,13 +25,13 @@ function MyProfile({ currentUser }) {
         <>
       <h1 className="text-center">{currentUser.name}'s Profile</h1>
       <h2 className="text-center"> Favorite genre: {currentUser.fav_genre}</h2>
-      <h2 className="text-center">Books on your shelf: {currentUser.bookCount}</h2>
+      {/* <h2 className="text-center">Books on your shelf: {currentUser.bookCount}</h2> */}
       <h2 className="text-center">About {currentUser.name}: </h2>
       <p className="text-center">{currentUser.bio}</p>
 
       <div>
         <h4 className="text-center">
-          <UpdateForm setProfile={setProfile} currentUser={currentUser}/>
+          <UpdateForm setProfile={setProfile} setCurrentUser={setCurrentUser} currentUser={currentUser}/>
         </h4>
       </div>
       </>

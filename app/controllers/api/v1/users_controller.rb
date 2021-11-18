@@ -17,7 +17,7 @@ class Api::V1::UsersController < ApplicationController
 
    
     def update 
-        @current_user.update(user_params)
+        current_user.update(user_params)
         render json: @current_user
     end
 

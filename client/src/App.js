@@ -96,7 +96,7 @@ book.title.toLowerCase().includes(search.toLowerCase()))
         </Route>
   
     <Route path='/myprofile'>
-      <MyProfile currentUser={currentUser} /> 
+      <MyProfile currentUser={currentUser} setCurrentUser={setCurrentUser} /> 
     </Route>
 
       
